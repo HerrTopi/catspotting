@@ -33,8 +33,16 @@ const useStyles = makeStyles((theme) => ({
         padding: '10px'
     },
     picture: {
-        height: "100px",
+        height: "100%",
         display: "inline",
+    },
+    pictureSmallTop: {
+        maxWidth: "50px",
+        marginBottom: "-4px",
+    },
+    pictureSmallBottom: {
+        maxWidth: "50px",
+        marginTop: "4px",
     },
     formField: {
         paddingTop: "10px"
@@ -50,12 +58,24 @@ const useStyles = makeStyles((theme) => ({
         display: "inline-block",
         marginRight: "-2px",
     },
+    imgcolorPlaceHolder: {
+        width: "100px",
+        height: "100px",
+        borderStyle: "solid",
+        display: "inline-block",
+        marginRight: "-2px",
+    },
+    imgcolorRow: {
+        display: "flex"
+    },
     imgPlaceHolderPlaceholder: {
-        marginTop: "20px"
+        marginTop: "0",
+        display: "flex"
     },
     saveButton: {
         height: "101px",
         marginTop: "74px",
+        marginLeft: "20px",
         width: "300px",
         fontSize: "24px",
         borderRadius: 0,
@@ -110,6 +130,12 @@ const CatForm = ({ onSubmit, initialValues = {
     const handleOnClick = ({ latLng }) => {
         formik.setFieldValue("lat", latLng.lat())
         formik.setFieldValue("lng", latLng.lng())
+    }
+
+    const getColors = (top = true) => {
+        const numberOfColors = formik.values.color.length;
+        const topColors = Math.ceil(numberOfColors / 2);
+        return top ? formik.values.color.slice(0, topColors) : formik.values.color.slice(topColors, numberOfColors)
     }
     return (
         <form className={classes.catform} onSubmit={formik.handleSubmit}>
@@ -196,25 +222,6 @@ const CatForm = ({ onSubmit, initialValues = {
                     </div>
 
                     <div className={classes.formField}>
-                        <div className={classes.label}>Color</div>
-
-                        <Select
-                            id="color"
-                            name="color"
-                            variant="outlined"
-                            className={classes.select}
-                            value={formik.values.color}
-                            multiple
-                            onChange={formik.handleChange}
-                        >
-                            <MenuItem value="">
-                                <em>Unknown</em>
-                            </MenuItem>
-                            {colors.map(color => <MenuItem key={color} value={color}>{color}</MenuItem>)}
-                        </Select>
-                    </div>
-
-                    <div className={classes.formField}>
                         <div className={classes.label}>Quantum state</div>
 
                         <Select
@@ -226,6 +233,22 @@ const CatForm = ({ onSubmit, initialValues = {
                             onChange={formik.handleChange}
                         >
                             {quantumStates.map(quantumState => <MenuItem key={quantumState} value={quantumState}>{quantumState}</MenuItem>)}
+                        </Select>
+                    </div>
+
+                    <div className={classes.formField}>
+                        <div className={classes.label}>Color</div>
+
+                        <Select
+                            id="color"
+                            name="color"
+                            variant="outlined"
+                            className={classes.select}
+                            value={formik.values.color}
+                            multiple
+                            onChange={formik.handleChange}
+                        >
+                            {colors.map(color => <MenuItem key={color} value={color}>{color}</MenuItem>)}
                         </Select>
                     </div>
 
@@ -289,10 +312,24 @@ const CatForm = ({ onSubmit, initialValues = {
                             {formik.values.activity && <img className={classes.picture} src={`${process.env.PUBLIC_URL}/activity/${formik.values.activity.split(" ").join("")}.jpg`} />}
                         </div>
                         <div className={classes.imgPlaceHolder}>
-                            {formik.values.color.length > 0 && <img className={classes.picture} src={`${process.env.PUBLIC_URL}/color/${formik.values.color[0]}.jpg`} />}
-                        </div>
-                        <div className={classes.imgPlaceHolder}>
                             {formik.values.quantumState && <img className={classes.picture} src={`${process.env.PUBLIC_URL}/quantumstate/${formik.values.quantumState}.jpg`} />}
+                        </div>
+                        <div style={{ minWidth: "100px", width: `${50 * getColors().length}px` }} className={classes.imgcolorPlaceHolder}>
+                            {formik.values.color.length > 1 && (<React.Fragment> <div className={classes.imgcolorRow}>
+                                {getColors().map(color => (
+                                    <img className={classes.pictureSmallTop} src={`${process.env.PUBLIC_URL}/color/${color}.jpg`} />
+                                ))}
+                            </div>
+                                <div className={classes.imgcolorRow}>
+                                    {getColors(false).map(color => (
+                                        <img className={classes.pictureSmallBottom} src={`${process.env.PUBLIC_URL}/color/${color}.jpg`} />
+                                    ))}
+                                </div>
+                            </React.Fragment>)
+                            }
+                            {formik.values.color.length === 1 && (
+                                <img className={classes.picture} src={`${process.env.PUBLIC_URL}/color/${formik.values.color[0]}.jpg`} />)
+                            }
                         </div>
                     </div>
                 </div>
