@@ -92,7 +92,7 @@ const CatForm = ({ onSubmit, initialValues = {
         enableReinitialize: true,
         onSubmit: (values, { resetForm }) => {
             const { lat, lng, datetime, ...rest } = values;
-            onSubmit({ ...rest, datetime: `${datetime}Z`, location: { latitude: lat, longitude: lng } })
+            onSubmit({ ...rest, datetime: `${datetime}:00Z`, location: { latitude: lat, longitude: lng } })
             resetForm(initialValues)
         },
     });
