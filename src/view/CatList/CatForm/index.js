@@ -72,6 +72,16 @@ const ages = ["kitten", "young", "old"]
 const activities = ["sleeping", "maintaining anal hygiene", "maintaining fur hygiene", "watching", "playing", "acting scared", "acting weird", "looking grumpy", "eating", "drinking", "hunting"]
 const quantumStates = ["alive", "dead", "both", "neither"]
 
+const now = () => {
+    const newDate = new Date();
+    const month = newDate.getMonth() < 10 ? `0${newDate.getMonth()}` : newDate.getMonth()
+    const date = newDate.getDate() < 10 ? `0${newDate.getDate()}` : newDate.getDate()
+    const hour = newDate.getHours() < 10 ? `0${newDate.getHours()}` : newDate.getHours()
+    const minute = newDate.getMinutes() < 10 ? `0${newDate.getMinutes()}` : newDate.getMinutes()
+
+    return `${newDate.getFullYear()}-${month}-${date}T${hour}:${minute}`
+}
+console.log(now())
 const CatForm = ({ onSubmit, initialValues = {
     spotter: "",
     breed: "",
@@ -79,7 +89,7 @@ const CatForm = ({ onSubmit, initialValues = {
     age: "",
     color: [],
     quantumState: "",
-    datetime: "1970-01-01T00:00",
+    datetime: now(),
     lat: 47.48790873591885,
     lng: 19.040234582753975
 } }) => {
