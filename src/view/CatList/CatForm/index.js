@@ -104,7 +104,7 @@ const now = () => {
 
     return `${newDate.getFullYear()}-${month}-${date}T${hour}:${minute}`
 }
-console.log(now())
+
 const CatForm = ({ onSubmit, initialValues = {
     spotter: "",
     breed: "",
@@ -122,7 +122,6 @@ const CatForm = ({ onSubmit, initialValues = {
 
     const formik = useFormik({
         initialValues,
-        enableReinitialize: true,
         onSubmit: (values, { resetForm }) => {
             const { lat, lng, datetime, ...rest } = values;
             onSubmit({ ...rest, datetime: `${datetime}:00Z`, location: { latitude: lat, longitude: lng } })
@@ -326,12 +325,12 @@ const CatForm = ({ onSubmit, initialValues = {
                         <div style={{ minWidth: "100px", width: `${50 * getColors().length}px` }} className={classes.imgcolorPlaceHolder}>
                             {formik.values.color.length > 1 && (<React.Fragment> <div className={classes.imgcolorRow}>
                                 {getColors().map(color => (
-                                    <img className={classes.pictureSmallTop} src={`${process.env.PUBLIC_URL}/color/${color}.jpg`} />
+                                    <img key={color} className={classes.pictureSmallTop} src={`${process.env.PUBLIC_URL}/color/${color}.jpg`} />
                                 ))}
                             </div>
                                 <div className={classes.imgcolorRow}>
                                     {getColors(false).map(color => (
-                                        <img className={classes.pictureSmallBottom} src={`${process.env.PUBLIC_URL}/color/${color}.jpg`} />
+                                        <img key={color} className={classes.pictureSmallBottom} src={`${process.env.PUBLIC_URL}/color/${color}.jpg`} />
                                     ))}
                                 </div>
                             </React.Fragment>)
