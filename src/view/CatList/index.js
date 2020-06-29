@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     catList: {
         margin: "auto",
         width: "900px",
+        minHeight: "100vh",
         textAlign: "center",
         background: "rgb(242,242,242)"
     },
