@@ -4,8 +4,11 @@ import { useFormik } from 'formik';
 import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import { GoogleMap, LoadScript } from '@react-google-maps/api';
-
+import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+const center = {
+    lat: 47.48790873591885,
+    lng: 19.040234582753975
+}
 const useStyles = makeStyles((theme) => ({
     catform: {
         textAlign: "left",
@@ -289,13 +292,19 @@ const CatForm = ({ onSubmit, initialValues = {
                     >
                         <GoogleMap
                             mapContainerStyle={containerStyle}
-                            center={{
-                                lng: formik.values.lng,
-                                lat: formik.values.lat
-                            }}
+                            center={center}
                             zoom={10}
                             onClick={handleOnClick}
-                        > <></>
+                        >
+                            <Marker
+                                position={{
+                                    lat: formik.values.lat,
+                                    lng: formik.values.lng
+                                }}
+                                icon={{
+                                    url: `${process.env.PUBLIC_URL}/icon.png`
+                                }}
+                            ></Marker>
                         </GoogleMap>
                     </LoadScript>
                 </div>

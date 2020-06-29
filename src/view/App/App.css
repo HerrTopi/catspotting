@@ -42,3 +42,9 @@ body {
     transform: rotate(360deg);
   }
 }
+.gm-fullscreen-control {
+  display:none
+}
+.gmnoprint{
+  display:none
+}
