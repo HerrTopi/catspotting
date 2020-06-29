@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
         width: "250px",
         backgroundColor: "lightgrey"
     },
-    inputWithDateTime: {
+    datetime: {
         width: "255px",
         backgroundColor: "lightgrey"
     },
@@ -79,7 +79,7 @@ const CatForm = ({ onSubmit, initialValues = {
     age: "",
     color: [],
     quantumState: "",
-    datetime: "",
+    datetime: "1970-01-01T00:00",
     lat: 47.48790873591885,
     lng: 19.040234582753975
 } }) => {
@@ -91,8 +91,8 @@ const CatForm = ({ onSubmit, initialValues = {
         initialValues,
         enableReinitialize: true,
         onSubmit: (values, { resetForm }) => {
-            const { lat, lng, ...rest } = values;
-            onSubmit({ ...rest, location: { latitude: lat, longitude: lng } })
+            const { lat, lng, datetime, ...rest } = values;
+            onSubmit({ ...rest, datetime: `${datetime}Z`, location: { latitude: lat, longitude: lng } })
             resetForm(initialValues)
         },
     });
@@ -137,7 +137,7 @@ const CatForm = ({ onSubmit, initialValues = {
                             id="datetime"
                             name="datetime"
                             type="datetime-local"
-                            value={formik.values.inputWithDateTime}
+                            value={formik.values.datetime}
                             onChange={formik.handleChange}
                             className={classes.inputWith}
                             InputLabelProps={{
