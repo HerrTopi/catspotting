@@ -102,7 +102,7 @@ const CatList = ({ cats, getCats, saveCat }) => {
                                             <div><div className={classes.infoWindowRowKey}> Spotted at: </div> <div className={classes.infoWindowRowValue}>{cat.datetime}</div></div>
                                             <div><div className={classes.infoWindowRowKey}> Age: </div> <div className={classes.infoWindowRowValue}>{cat.age}</div></div>
                                             <div><div className={classes.infoWindowRowKey}> Activity: </div> <div className={classes.infoWindowRowValue}>{cat.activity}</div></div>
-                                            <div><div className={classes.infoWindowRowKey}> Quantum state: </div> <div className={classes.infoWindowRowValue}>{cat.quantum_state}</div></div>
+                                            <div><div className={classes.infoWindowRowKey}> Quantum state: </div> <div className={classes.infoWindowRowValue}>{cat.quantumState}</div></div>
                                             <div><div className={classes.infoWindowRowKey}> Color: </div> <div className={classes.infoWindowRowValue}>{cat.color.join(", ")}</div></div >
                                             <div><div className={classes.infoWindowRowKey}> Location: </div> <div className={classes.infoWindowRowValue}>{`${cat.location.latitude}, ${cat.location.longitude}`}</div></div >
                                         </div >
