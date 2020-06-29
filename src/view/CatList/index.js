@@ -56,7 +56,7 @@ const CatList = ({ cats, getCats, saveCat }) => {
 
     return (
         <div className={classes.catList}>
-            <h1>SPOTTED A CAT?</h1>
+            <h1 style={{ marginTop: 0 }}>SPOTTED A CAT?</h1>
             <CatForm onSubmit={saveCat}></CatForm>
             <h1>SEARCH FOR CATS</h1>
             <input value={searchTerm} onChange={handleSearchTerm}></input>
